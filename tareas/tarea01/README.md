@@ -67,9 +67,9 @@ Consiste en ordenar el segmento del arreglo y regresar el k-esimo valor.
 ary[i..j].sort![k] #=> K esimo valor del intervalo i.j
 ~~~
 
-Al realizar el ordenamiento se tiene complejidad $O(N\ lg(N))$
+Al realizar el ordenamiento se tiene complejidad `O(N lg(N))`
 
-## Solución $lg^3(N)$
+## Solución lg³(N)
 
 ### Segment tree
 
@@ -96,7 +96,7 @@ en donde cada nodo representa un segmento del intervalo y nos permite almacenar
 información relevante al segmento.
 
 De esta forma cuando se pregunta por un segmento, se tiene que encontrar el
-sub-conjunto de segmentos involucrados del cual como máximo existen $lg(N)$.
+sub-conjunto de segmentos involucrados del cual como máximo existen `lg(N)`.
 
 
 ### Construcción del árbol
@@ -148,10 +148,10 @@ def build(index, range)
     return segment
   else
 
-    span = range.begin + range.end
+    mid = range.begin + (range.begin - range.end)/2
 
-    left_segment  = build(left_child(index) , range.begin..(span/2)   )
-    right_segment = build(right_child(index), ((span/2)+1)..range.end )
+    left_segment  = build(left_child(index) , range.begin..mid   )
+    right_segment = build(right_child(index), (mid+1)..range.end )
 
     segment = merge(left_segment,right_segment)
 
@@ -163,7 +163,7 @@ end
 ~~~
 
 en donde tenemos  dos variables privadas `@ary` que contiene el arreglo que se
-desea procesar y `@tree` que contiene $\left\lceil(lg(N)\right\rceil + 1$ nodos
+desea procesar y `@tree` que contiene `⌈lg(N)⌉ + 1 	` nodos
 y almacena el árbol.
 
 El caso base de esta función recursiva es cuando se tiene un elemento que es
@@ -252,7 +252,6 @@ será entonces el valor mas pequeño en el rango `0..M` que tenga al menos `k`
 elementos menores entre los segmentos obtenidos mediante la función
 *get_segments(.)*
 
-
 ~~~ruby
 def kth_element(search_range,k)
   kth = @map.size - 1
@@ -287,7 +286,7 @@ debemos tener en cuenta que el valor puede tener más de `k` elementos menores
 pues puede haber `s` repeticiones de si mismo, por ello la búsqueda esta sesgada
 a la izquierda y se regresa el menor valor que tenga `leq_count >= k`
 
-La función *bsearch_leq(.)* es una búsqueda binaria que regresa la cantidad
+La función ***bsearch_leq(.)*** es una búsqueda binaria que regresa la cantidad
 de elementos menores o iguales que `mid`, en el segmento `segment`.
 
 ~~~ruby
